@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button class="fas">发送请求</button>
+  <button class="qx">取消请求</button>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      let cancel = null;
+
+      const fsElm = document.querySelector('.fas');
+      const qxElm = document.querySelector('.qx');
+
+      fsElm.addEventListener('click', function () {
+        axios.get('http://localhost:3000/posts/1', {
+          cancelToken: new axios.CancelToken(function executor(c) {
+            // executor 函数接收一个 cancel 函数作为参数
+            cancel = c;
+          })
+        }).then(function (res) {
+          console.log(res);
+          console.log(cancel);
+          cancel = null;
+        });
+      });
+
+      // 取消请求
+      qxElm.addEventListener('click', function () {
+        // axios.cancel('getData');
+        cancel();
+      });
+
+      // axios.get("http://localhost:3000/posts/1", {
+
+      // }).then(res => {
+      //   console.log(res);
+
+      // }).catch(err => {
+      //   console.error(err);
+      // });
+
+      // const duanzi = axios.create({
+      //   baseURL: "http://localhost:3000",
+      //   timeout: 5000,
+      // });
+
+
+      // duanzi.get("/posts/1", {
+
+      // }).then(res => {
+      //   console.log(res);
+
+      // }).catch(err => {
+      //   console.error(err);
+      // });
+    })();
+
+  </script>
+</body>
+
+</html>
