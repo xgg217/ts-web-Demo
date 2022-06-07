@@ -17,6 +17,7 @@ import type { IFun } from './type/IFun';
   const stopEle = document.querySelector('.stop');
   // const startEle = document.querySelector('.start');
 
+
   /**
    * @description: 回调参数
    * @param {string} color 当前灯的颜色
